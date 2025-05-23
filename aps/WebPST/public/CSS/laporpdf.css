@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.tabel {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border-collapse: collapse;
+  border-radius: 10px; /* Set border-radius to round the corners */
+  overflow: hidden; 
+}
+td,th{
+  font-size: 2em;
+}
+th{
+  padding-bottom: 80px;
+}
+.judul{
+  border: 2px solid black;
+  margin: auto;
+  width: 20%;
+  border-radius: 10px;
+}

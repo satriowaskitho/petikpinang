@@ -1,0 +1,25 @@
+{
+"type": "FeatureCollection",
+"name": "desatp",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "X": 104.5029909, "Y": 0.947471874, "ID": "1", "kode": "020003", "Desa": "AIR RAJA", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.5029909, 0.947471874 ] } },
+{ "type": "Feature", "properties": { "X": 104.5270747, "Y": 0.933828982, "ID": "2", "kode": "020004", "Desa": "PINANG KENCANA", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.5270747, 0.933828982 ] } },
+{ "type": "Feature", "properties": { "X": 104.4857352, "Y": 0.917172598, "ID": "3", "kode": "020002", "Desa": "MELAYU KOTA PIRING", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4857352, 0.917172598 ] } },
+{ "type": "Feature", "properties": { "X": 104.5142473, "Y": 0.901050394, "ID": "4", "kode": "020001", "Desa": "BATU SEMBILAN", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.5142473, 0.901050394 ] } },
+{ "type": "Feature", "properties": { "X": 104.4660684, "Y": 0.957601501, "ID": "5", "kode": "030003", "Desa": "KAMPUNG BUGIS", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4660684, 0.957601501 ] } },
+{ "type": "Feature", "properties": { "X": 104.4722192, "Y": 0.920640863, "ID": "6", "kode": "020005", "Desa": "KAMPUNG BULANG", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4722192, 0.920640863 ] } },
+{ "type": "Feature", "properties": { "X": 104.4178031, "Y": 0.92816999, "ID": "7", "kode": "030002", "Desa": "PENYENGAT", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4178031, 0.92816999 ] } },
+{ "type": "Feature", "properties": { "X": 104.4582826, "Y": 0.914912504, "ID": "8", "kode": "010002", "Desa": "TANJUNGPINANG TIMUR", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4582826, 0.914912504 ] } },
+{ "type": "Feature", "properties": { "X": 104.4585308, "Y": 0.903296369, "ID": "9", "kode": "010003", "Desa": "TANJUNG AYUN SAKTI", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4585308, 0.903296369 ] } },
+{ "type": "Feature", "properties": { "X": 104.4416577, "Y": 0.92922776, "ID": "10", "kode": "030001", "Desa": "TANJUNGPINANG KOTA", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4416577, 0.92922776 ] } },
+{ "type": "Feature", "properties": { "X": 104.4598557, "Y": 0.922834186, "ID": "11", "kode": "010005", "Desa": "TANJUNG UNGGAT", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4598557, 0.922834186 ] } },
+{ "type": "Feature", "properties": { "X": 104.4530591, "Y": 0.873434256, "ID": "12", "kode": "010001", "Desa": "DOMPAK", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4530591, 0.873434256 ] } },
+{ "type": "Feature", "properties": { "X": 104.4490638, "Y": 0.926278018, "ID": "13", "kode": "040002", "Desa": "KEMBOJA", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4490638, 0.926278018 ] } },
+{ "type": "Feature", "properties": { "X": 104.442553, "Y": 0.915899183, "ID": "14", "kode": "040001", "Desa": "TANJUNGPINANG BARAT", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.442553, 0.915899183 ] } },
+{ "type": "Feature", "properties": { "X": 104.4761269, "Y": 0.897116081, "ID": "15", "kode": "010004", "Desa": "SEI JANG", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4761269, 0.897116081 ] } },
+{ "type": "Feature", "properties": { "X": 104.4484616, "Y": 0.921183408, "ID": "16", "kode": "040004", "Desa": "BUKIT CERMIN", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4484616, 0.921183408 ] } },
+{ "type": "Feature", "properties": { "X": 104.4322502, "Y": 0.960909904, "ID": "17", "kode": "030004", "Desa": "SENGGARANG", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4322502, 0.960909904 ] } },
+{ "type": "Feature", "properties": { "X": 104.4487522, "Y": 0.908310675, "ID": "18", "kode": "040003", "Desa": "KAMPUNG BARU", "SUMBER": "Edit sendiri" }, "geometry": { "type": "Point", "coordinates": [ 104.4487522, 0.908310675 ] } }
+]
+}

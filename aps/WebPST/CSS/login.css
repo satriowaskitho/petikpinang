@@ -1,0 +1,20 @@
+.divBP{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.divBP > div{
+  margin-top: 20px;
+}
+.divBP > p{
+  padding-top: 10px;
+  color: var(--grey-color);
+}
+.hapusFooter{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hapusFooter > button{
+  margin: 5px;
+  padding: 5px;
+}
