@@ -18,7 +18,8 @@ class App extends BaseConfig
      */
     // public string $baseURL = 'http://localhost/WebPST/public/';
     // public string $baseURL = 'http://localhost/WebPST/public/';
-    public string $baseURL = 'https://bpskepri.com/bps2172/aps/WebPST/';
+    // public string $baseURL = 'https://bpskepri.com/bps2172/aps/WebPST/';
+    public string $baseURL = 'https://petikpinang.gurind.am/aps/WebPST/';
 
 
     /**

@@ -16,7 +16,8 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://bpskepri.com/bps2172/aps/PerpusPST/';
+    // public string $baseURL = 'https://bpskepri.com/bps2172/aps/PerpusPST/';
+    public string $baseURL = 'https://petikpinang.gurind.am/aps/PerpusPST/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
