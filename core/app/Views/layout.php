@@ -186,8 +186,7 @@
                                     <div style="width:250px">
                                         <label for="tahun-select2" class="color-white">Tahun</label>
                                         <select class="form-control" id="tahun">
-                                            <option disabled="" selected="">Pilih</option>
-                                            <option value="2025">2025</option>
+                                            <option disabled="" selected="">Pilih</option>                                            
                                             <option value="2024">2024</option>
                                             <option value="2023">2023</option>
                                             <option value="2022">2022</option>
@@ -237,9 +236,10 @@
                                         <label for="tahun1-select2" class="color-white">Tahun</label>
                                         <select class="form-control" id="tahun1">
                                             <option disabled="" selected="">Pilih</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2023">2023</option>
                                             <option value="2022">2022</option>
                                             <option value="2021">2021</option>
-                                           
                                         </select>
                                     </div>
                                 </div>
