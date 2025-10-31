@@ -1,8 +1,11 @@
 FROM php:8.2-apache
 
-# Install system deps and PHP extensions as needed (pdo_mysql shown; add intl, pgsql, gd, zip if required)
-RUN apt-get update && apt-get install -y \
-  && docker-php-ext-install intl
+# System deps for intl and common PHP builds
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  && docker-php-ext-configure intl \
+  && docker-php-ext-install -j$(nproc) intl \
+  && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache modules
 RUN a2enmod rewrite
