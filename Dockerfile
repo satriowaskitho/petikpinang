@@ -3,8 +3,6 @@ FROM php:8.2-apache
 # System deps for intl and common PHP builds
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-  && docker-php-ext-configure intl \
-  && docker-php-ext-install -j$(nproc) intl \
   && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache modules
