@@ -1,54 +1,35 @@
+# core/Dockerfile
 FROM php:7.4-apache
 
-# PHP 7.4 extensions and tools
 RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-      libicu-dev g++ pkg-config libzip-dev unzip git libpq-dev \
+ && apt-get install -y --no-install-recommends libicu-dev g++ pkg-config libzip-dev unzip git libpq-dev \
  && docker-php-ext-configure intl \
  && docker-php-ext-install -j"$(nproc)" intl zip pdo pdo_mysql pdo_pgsql pgsql \
  && rm -rf /var/lib/apt/lists/*
 
-# Enable rewrite
 RUN a2enmod rewrite
-
-# After enabling rewrite and before starting Apache
-RUN printf "ServerName petikpinang-dev.gurind.am\n" > /etc/apache2/conf-available/servername.conf \
- && a2enconf servername
-
-# Ensure DirectoryIndex resolves to index.php
+# Serve repository root where index.php resides
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
+RUN sed -ri "s!DocumentRoot .*!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf \
+ && sed -ri "s!<Directory /var/www/>!<Directory ${APACHE_DOCUMENT_ROOT}/>!g" /etc/apache2/apache2.conf
 RUN printf "DirectoryIndex index.php index.html\n" > /etc/apache2/conf-available/dirindex.conf \
  && a2enconf dirindex
+RUN printf "\n<Directory ${APACHE_DOCUMENT_ROOT}>\n  Options -Indexes\n  AllowOverride All\n  Require all granted\n</Directory>\n" > /etc/apache2/conf-available/app-override.conf \
+ && a2enconf app-override
 
-# Explicit vhost for your domain with correct permissions and overrides
-RUN printf "<VirtualHost *:80>\n\
-  ServerName petikpinang-dev.gurind.am\n\
-  DocumentRoot /var/www/html\n\
-  <Directory /var/www/html>\n\
-    Options -Indexes\n\
-    AllowOverride All\n\
-    Require all granted\n\
-  </Directory>\n\
-  ErrorLog \${APACHE_LOG_DIR}/error.log\n\
-  CustomLog \${APACHE_LOG_DIR}/access.log combined\n\
-</VirtualHost>\n" > /etc/apache2/sites-available/app.conf \
- && a2dissite 000-default \
- && a2ensite app
-
+# IMPORTANT: copy the entire repository so root index.php is included
 WORKDIR /var/www/html
-COPY . .
+COPY .. .    # from core/Dockerfile, ".." refers to repo root in the build context [web:99]
 
-# Composer (only if core/composer.json exists)
+# Composer only if core/composer.json exists
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN if [ -f core/composer.json ]; then \
       cd core && composer install --no-dev --prefer-dist --no-interaction --no-ansi --no-progress; \
     fi
 
-# Permissions
 RUN chown -R www-data:www-data /var/www/html \
  && find /var/www/html -type d -exec chmod 755 {} \; \
- && find /var/www/html -type f -exec chmod 644 {} \; \
- && [ -d /var/www/html/application/cache ] && chmod -R 775 /var/www/html/application/cache || true \
- && [ -d /var/www/html/application/logs ] && chmod -R 775 /var/www/html/application/logs || true
+ && find /var/www/html -type f -exec chmod 644 {} \;
 
 EXPOSE 80
 CMD ["apache2-foreground"]
