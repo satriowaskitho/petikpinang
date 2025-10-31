@@ -5,17 +5,23 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache modules
+# Enable Apache rewrite and point DocumentRoot to core/public
 RUN a2enmod rewrite
-
-# Set Apache DocumentRoot to /var/www/html/public (CodeIgniter 4 public dir)
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/core/public
 RUN sed -ri "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf \
- && sed -ri "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf \
  && sed -ri "s!<Directory /var/www/>!<Directory ${APACHE_DOCUMENT_ROOT}/>!g" /etc/apache2/apache2.conf
 
-# Copy source
-COPY . /var/www/html
+# Copy only composer files first for layer caching
+WORKDIR /var/www/html/core
+COPY core/composer.json core/composer.lock ./  # keep lock if present for reproducible builds [web:67]
+
+# Bring in Composer and install deps
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --prefer-dist --no-interaction --no-ansi --no-progress  # installs vendor/ under core/ [web:67]
+
+# Copy the rest of the repository
+WORKDIR /var/www/html
+COPY . .
 
 # Recommended: production .htaccess already present in public/. Ensure CI_ENVIRONMENT=production at runtime.
 EXPOSE 80
