@@ -11,6 +11,14 @@ RUN apt-get update \
 # Enable rewrite
 RUN a2enmod rewrite
 
+# After enabling rewrite and before starting Apache
+RUN printf "ServerName petikpinang-dev.gurind.am\n" > /etc/apache2/conf-available/servername.conf \
+ && a2enconf servername
+
+# Ensure DirectoryIndex resolves to index.php
+RUN printf "DirectoryIndex index.php index.html\n" > /etc/apache2/conf-available/dirindex.conf \
+ && a2enconf dirindex
+
 # Explicit vhost for your domain with correct permissions and overrides
 RUN printf "<VirtualHost *:80>\n\
   ServerName petikpinang-dev.gurind.am\n\
