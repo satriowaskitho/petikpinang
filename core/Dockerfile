@@ -1,18 +1,14 @@
-# PHP 7.4 with Apache
 FROM php:7.4-apache
 
-# 1) System packages and PHP 7.4 extensions
-# - intl needs libicu-dev + g++
-# - zip needs libzip-dev + unzip
-# - git for Composer fallback to source
+# System packages and PHP 7.4 extensions
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-      libicu-dev g++ pkg-config libzip-dev unzip git \
+      libicu-dev g++ pkg-config libzip-dev unzip git libpq-dev \
  && docker-php-ext-configure intl \
- && docker-php-ext-install -j"$(nproc)" intl zip pdo pdo_mysql \
+ && docker-php-ext-install -j"$(nproc)" intl zip pdo pdo_mysql pdo_pgsql pgsql \
  && rm -rf /var/lib/apt/lists/*
 
-# 2) Apache: DocumentRoot = project root, enable rewrite, allow .htaccess, disable autoindex
+# Apache config for CI3 at repo root
 RUN a2enmod rewrite
 ENV APACHE_DOCUMENT_ROOT=/var/www/html
 RUN sed -ri "s!DocumentRoot .*!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf \
@@ -20,17 +16,17 @@ RUN sed -ri "s!DocumentRoot .*!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g" /etc/apac
 RUN printf "\n<Directory ${APACHE_DOCUMENT_ROOT}>\n    Options -Indexes\n    AllowOverride All\n    Require all granted\n</Directory>\n" > /etc/apache2/conf-available/ci3-override.conf \
  && a2enconf ci3-override
 
-# 3) App source
+# App source
 WORKDIR /var/www/html
 COPY . .
 
-# 4) Composer (run only if core/composer.json exists)
+# Composer (only if core/composer.json exists)
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN if [ -f core/composer.json ]; then \
       cd core && composer install --no-dev --prefer-dist --no-interaction --no-ansi --no-progress; \
     fi
 
-# 5) Permissions (adjust writable paths for CI3)
+# Permissions for CI3
 RUN chown -R www-data:www-data /var/www/html \
  && find /var/www/html -type d -exec chmod 755 {} \; \
  && find /var/www/html -type f -exec chmod 644 {} \; \
