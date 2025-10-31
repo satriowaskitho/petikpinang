@@ -17,7 +17,7 @@ RUN sed -ri "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-avail
 COPY . /var/www/html
 
 # Recommended: production .htaccess already present in public/. Ensure CI_ENVIRONMENT=production at runtime.
-EXPOSE 8080
+EXPOSE 80
 
 # Optional: composer install if repository lacks vendor
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
