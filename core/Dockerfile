@@ -2,9 +2,9 @@ FROM php:8.2-apache
 
 # 1) PHP extensions (intl first)
 RUN apt-get update \
- && apt-get install -y --no-install-recommends libicu-dev g++ pkg-config \
+ && apt-get install -y --no-install-recommends libicu-dev g++ pkg-config libzip-dev unzip git \
  && docker-php-ext-configure intl \
- && docker-php-ext-install -j"$(nproc)" intl \
+ && docker-php-ext-install -j"$(nproc)" intl zip \
  && rm -rf /var/lib/apt/lists/*
 
 # 2) Apache rewrite + DocumentRoot -> public
