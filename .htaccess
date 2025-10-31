@@ -1,7 +1,6 @@
 # Disable directory browsing
 Options All -Indexes
 
-# Apache rewrite
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
@@ -17,7 +16,7 @@ Options All -Indexes
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
-    # Route everything to index.php if not a real file/dir
+    # Route to front controller
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
