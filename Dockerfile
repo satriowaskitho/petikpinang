@@ -11,9 +11,16 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/core/public
 RUN sed -ri "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf \
  && sed -ri "s!<Directory /var/www/>!<Directory ${APACHE_DOCUMENT_ROOT}/>!g" /etc/apache2/apache2.conf
 
-# Copy only composer files first for layer caching
+# Ensure target dir exists before copying
+RUN mkdir -p /var/www/html/core
+
+# Set workdir where composer.json lives
 WORKDIR /var/www/html/core
-COPY core/composer.json core/composer.lock ./  # keep lock if present for reproducible builds [web:67]
+
+# Copy composer files from repo's core/ folder
+COPY core/composer.json ./  # required [web:67]
+# Copy lock file only if present; otherwise skip this line in your Dockerfile
+# COPY core/composer.lock ./  # optional but recommended for reproducible builds [web:67]
 
 # Bring in Composer and install deps
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -25,10 +32,6 @@ COPY . .
 
 # Recommended: production .htaccess already present in public/. Ensure CI_ENVIRONMENT=production at runtime.
 EXPOSE 80
-
-# Optional: composer install if repository lacks vendor
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-RUN cd /var/www/html && composer install --no-dev --prefer-dist --no-interaction
 
 # Health: Apache foreground
 CMD ["apache2-foreground"]
